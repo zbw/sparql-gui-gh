@@ -24,7 +24,7 @@ var consumeUrl = function(yasqe, args) {
  
 var yasqe = YASQE(document.getElementById("yasqe"), {
   sparql: {
-    showQueryButton: true,
+    showQueryButton: true
   },
   consumeShareLink: consumeUrl
 });
@@ -39,12 +39,13 @@ var yasr = YASR(document.getElementById("yasr"), {
 * Set some of the hooks to link YASR and YASQE
 */
 yasqe.options.sparql.handlers.success = function(data, textStatus, xhr) {
-yasr.setResponse({response: data, contentType: xhr.getResponseHeader("Content-Type")});
+  yasr.setResponse(
+    {response: data, contentType: xhr.getResponseHeader("Content-Type")}
+  );
 };
 yasqe.options.sparql.handlers.error = function(xhr, textStatus, errorThrown) {
-var exceptionMsg = textStatus + " (response status code " + xhr.status + ")";
-if (errorThrown && errorThrown.length) exceptionMsg += ": " + errorThrown;
+  var exceptionMsg = textStatus + " (response status code " + xhr.status + ")";
+  if (errorThrown && errorThrown.length) exceptionMsg += ": " + errorThrown;
   yasr.setResponse({exception: exceptionMsg});
 };
-
 
