@@ -15,11 +15,17 @@ var consumeUrl = function(yasqe, args) {
   //Or, if you want to configure yasqe via a remote url (e.g. a query in some file elsewhere),
   //feel free to do so!
   //This example uses a cors proxy to access a github file containing a query
-  if (args.queryRef) {
-    $.get(args.queryRef, function(data) {yasqe.setValue(atob(data.content))});
-  } else {
-    $.get("https://api.github.com/repos/jneubert/skos-history/contents/sparql/version_overview.rq", function(data) {yasqe.setValue(atob(data.content))});
+  var queryReferenceURI = function () {
+    if (args.queryRef) {
+      return args.queryRef;
+    } else {
+      return "https://api.github.com/repos/jneubert/skos-history/contents/sparql/version_overview.rq";
+    }
   }
+  $.get(queryReferenceURI(), function(data) {
+    yasqe.setValue(atob(data.content));
+    yasqe.query();
+  });
 };
  
 var yasqe = YASQE(document.getElementById("yasqe"), {
