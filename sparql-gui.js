@@ -1,3 +1,4 @@
+// from an example at https://gist.github.com/LaurensRietveld/eebde750f87c52cdfa58
 var consumeUrl = function(yasqe, args) {
 
   //change query and endpoint value if there are any
