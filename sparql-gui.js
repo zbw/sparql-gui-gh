@@ -8,6 +8,8 @@ var consumeUrl = function(yasqe, args) {
   } else {
     yasqe.options.sparql.endpoint = "http://zbw.eu/beta/sparql/stwv/query";
   }
+  // display the endpoint url on the page
+  document.getElementById("endpoint_url").innerHTML = yasqe.options.sparql.endpoint;
 
   //want to consume other arguments such as the request type (POST/GET), or arguments to send to endpoint
   //feel free to add them in this function as well.
