@@ -25,6 +25,13 @@ var consumeUrl = function(yasqe, args) {
       return "https://api.github.com/repos/jneubert/skos-history/contents/sparql/version_overview.rq";
     }
   }
+  // display query reference
+  var re = new RegExp("https://api.github.com/repos/(.*?)/contents/(.*)");
+  var found = queryReferenceURI().match(re);
+  document.getElementById("repo").innerHTML = found[1];
+  document.getElementById("query_reference").innerHTML = found[2];
+
+  // get the query and exexcute
   $.get(queryReferenceURI(), function(data) {
     yasqe.setValue(atob(data.content));
     yasqe.query();

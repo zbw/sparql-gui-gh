@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
 <meta charset="utf-8">
 <title>Exploring SPARQL queries</title>
@@ -7,16 +8,24 @@
 <link href="//cdnjs.cloudflare.com/ajax/libs/yasqe/1.5.3/yasqe.min.css" rel="stylesheet" type="text/css" />
 <link href="yasr.min.css" rel="stylesheet" type="text/css" />
 </head>
+
 <body>
-<h1 class="yasr" style="font-size: 110%">Exploring SPARQL queries</h1>
-<p class="yasr">Endpoint: <span id="endpoint_url"></span>.
+
+<h1 class="yasr" style="font-size: 110%">Exploring SPARQL queries - a ZBW Labs workpad</h1>
+
+<p class="yasr">Endpoint: <span id="endpoint_url">?</span>, GitHub repo: <span id="repo">?</span>, query: <strong id="query_reference">?</strong>.<br />
 GUI powered by <a href="http://yasqe.yasgui.org">YASQUE</a> and
-<a href="http://yasr.yasgui.org/">YASR</a>.</p>
+<a href="http://yasr.yasgui.org/">YASR</a>. From inside the edit area, use F11 / ESC to toggle full screen mode.</p>
+
 <div id="yasqe"></div>
 <div id="yasr"></div>
+
+<div style="margin-top: 1em;"><a href="http://zbw.eu/labs"><img src="http://zbw.eu/labs/sites/all/themes/custom/zenlabs/images/zbw-labs-logo-left.gif" style="width: 200px" alt="ZBW Labs" /></a></div>
+
 <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/yasqe/1.5.3/yasqe.bundled.min.js"></script>
 <script src="yasr.bundled.min.js"></script>
 <script src="sparql-gui.js"></script>
+
 </body>
 
