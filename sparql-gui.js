@@ -32,12 +32,20 @@ var consumeUrl = function(yasqe, args) {
 };
  
 var yasqe = YASQE(document.getElementById("yasqe"), {
+  // modify codemirror tab handling to solely use 2 spaces
+  tabSize: 2,
+  indentUnit: 2,
+  extraKeys: {
+    Tab: function(cm) {
+      var spaces = Array(cm.getOption("indentUnit") + 1).join(" ");
+      cm.replaceSelection(spaces);
+    }
+  },
   sparql: {
     showQueryButton: true
   },
   consumeShareLink: consumeUrl
 });
-
 
 var yasr = YASR(document.getElementById("yasr"), {
   //this way, the URLs in the results are prettified using the defined prefixes in the query
