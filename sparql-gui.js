@@ -39,6 +39,8 @@ var consumeUrl = function(yasqe, args) {
 };
  
 var yasqe = YASQE(document.getElementById("yasqe"), {
+  // display full query
+  viewportMargin: Infinity,
   // modify codemirror tab handling to solely use 2 spaces
   tabSize: 2,
   indentUnit: 2,
