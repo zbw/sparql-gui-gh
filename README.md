@@ -14,5 +14,5 @@ Labs](http://zbw.eu/labs) projects such as
 [sparql-queries](../../../sparql-queries) and
 [skos-history](../../../skos-history).
 
-URL example: http://zbw.eu/beta/sparql-gui/?queryRef=https://api.github.com/repos/jneubert/sparql-queries/contents/count_classes.rq&http://data.nobelprize.org/sparql
+URL example: http://zbw.eu/beta/sparql-gui/?queryRef=https://api.github.com/repos/jneubert/sparql-queries/contents/count_classes.rq&endpoint=http://data.nobelprize.org/sparql
 
