@@ -4,7 +4,7 @@ sparql-gui-gh
 View, edit and execute SPARQL queries stored on GitHub.
 
 This project simply consists of a little bit of glue code. It makes heavy use
-of Laurens Rietveld's [YASGE](http://yasqe.yasgui.org/) and
+of Laurens Rietveld's [YASQE](http://yasqe.yasgui.org/) and
 [YASR](http://yasr.yasgui.org/) javascript libraries, part of his
 [YASGUI](http://yasgui.org) project.
 
