@@ -18,5 +18,7 @@ Example:
 http://zbw.eu/beta/sparql-lab/?queryRef=https://api.github.com/repos/jneubert/sparql-queries/contents/class_overview.rq&endpoint=http://data.nobelprize.org/sparql
 views and executes the query stored at
 https://github.com/jneubert/sparql-queries/blob/master/class_overview.rq on the
-endpoint `http://data.nobelprize.org/sparql`.
+endpoint `http://data.nobelprize.org/sparql`. (The remote endpoint has to be
+[CORS](https://en.wikipedia.org/wiki/Cross-origin_resource_sharing) enabled for
+this to work).
 
