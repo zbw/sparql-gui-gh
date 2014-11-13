@@ -8,6 +8,12 @@ var consumeUrl = function(yasqe, args) {
   } else {
     yasqe.options.sparql.endpoint = "http://zbw.eu/beta/sparql/stwv/query";
   }
+  if (args.hide) {
+    document.getElementById("yasqe").style.display = "none";
+    document.getElementById("results").style.display = "none";
+    document.getElementById("results-link").style.display = "none";
+    YASR.defaults.drawOutputSelector = false;
+  }
   // display the endpoint url on the page
   document.getElementById("endpoint_url").innerHTML = yasqe.options.sparql.endpoint;
 
