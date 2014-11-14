@@ -1,7 +1,7 @@
 sparql-gui-gh
 =============
 
-View, edit and execute SPARQL queries stored on GitHub.
+_View, edit and execute SPARQL queries stored on GitHub_
 
 This project simply consists of a little bit of glue code. It makes heavy use
 of Laurens Rietveld's [YASQE](http://yasqe.yasgui.org/) and
@@ -18,7 +18,12 @@ Example:
 http://zbw.eu/beta/sparql-lab/?queryRef=https://api.github.com/repos/jneubert/sparql-queries/contents/class_overview.rq&endpoint=http://data.nobelprize.org/sparql
 views and executes the query stored at
 https://github.com/jneubert/sparql-queries/blob/master/class_overview.rq on the
-endpoint `http://data.nobelprize.org/sparql`. (The remote endpoint has to be
+endpoint `http://data.nobelprize.org/sparql`.
+
+Remote endpoints have to be
 [CORS](https://en.wikipedia.org/wiki/Cross-origin_resource_sharing) enabled for
 this to work).
+
+The URL parameter &hide={anyvalue} hides the query editing area and the switch
+for raw results.
 
