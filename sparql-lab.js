@@ -62,6 +62,10 @@ var yasqe = YASQE(document.getElementById("yasqe"), {
   consumeShareLink: consumeUrl
 });
 
+// merge fitting labels into uris, don't try to fetch from preflabel.org
+YASR.plugins.table.defaults.mergeLabelsWithUris = true;
+YASR.plugins.table.defaults.fetchTitlesFromPreflabel = false;
+
 var yasr = YASR(document.getElementById("yasr"), {
   //this way, the URLs in the results are prettified using the defined prefixes in the query
   getUsedPrefixes: yasqe.getPrefixesFromQuery
