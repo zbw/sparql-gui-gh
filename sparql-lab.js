@@ -35,6 +35,7 @@ var consumeUrl = function(yasqe, args) {
     var found = query_uri.match(re);
     document.getElementById("repo").innerHTML = found[1];
     document.getElementById("query_reference").innerHTML = found[2];
+    document.title = found[2] + ' | SPARQL Lab';
 
     // get the query and exexcute
     $.get(args.queryRef, function(data) {
