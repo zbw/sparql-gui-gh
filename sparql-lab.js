@@ -67,6 +67,9 @@ var yasqe = YASQE(document.getElementById("yasqe"), {
 YASR.plugins.table.defaults.mergeLabelsWithUris = true;
 YASR.plugins.table.defaults.fetchTitlesFromPreflabel = false;
 YASR.plugins.table.defaults.datatable.pageLength = 50;
+YASR.plugins.pivot.defaults.mergeLabelsWithUris = true;
+// don't load google content (protect privacy)
+YASR.plugins.pivot.defaults.useGChart = false;
 
 var yasr = YASR(document.getElementById("yasr"), {
   //this way, the URLs in the results are prettified using the defined prefixes in the query
