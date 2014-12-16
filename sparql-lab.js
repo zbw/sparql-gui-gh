@@ -1,3 +1,5 @@
+// SPARQL Lab glue code
+
 // from an example at https://gist.github.com/LaurensRietveld/eebde750f87c52cdfa58
 var consumeUrl = function(yasqe, args) {
 
@@ -51,11 +53,10 @@ var consumeUrl = function(yasqe, args) {
         query = query.replace(re, "$1" + args.language + "$2");
       }
       // q+d oldVersion and newVersion value replacement (must be
-      // adjacent value parameters, undef by default)
+      // adjacent value parameters, " undef undef " by default)
       if (args.oldVersion && args.newVersion) {
         var re = new RegExp("(values\\s+\\(\\s+.*?\\?oldVersion\\s+\\?newVersion\\s+.*?\\)\\s+\\{\\s+\\(\\s+.*?) undef undef (.*?\\s+\\)\\s+\\})", "i");
         query = query.replace(re, "$1" + " \"" + args.oldVersion + "\" \"" + args.newVersion + "\" " + "$2");
-        alert(query);
       }
       yasqe.setValue(query);
       yasqe.query();
@@ -88,6 +89,8 @@ YASR.plugins.table.defaults.datatable.pageLength = 50;
 YASR.plugins.pivot.defaults.mergeLabelsWithUris = true;
 // don't load google content (protect privacy)
 YASR.plugins.pivot.defaults.useGoogleCharts = false;
+// disable persitency
+YASR.defaults.persistency.prefix = false;
 
 var yasr = YASR(document.getElementById("yasr"), {
   //this way, the URLs in the results are prettified using the defined prefixes in the query
