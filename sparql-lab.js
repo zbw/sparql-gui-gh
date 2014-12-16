@@ -55,13 +55,13 @@ var consumeUrl = function(yasqe, args) {
       // q+d oldVersion and newVersion value replacement (must be
       // adjacent value parameters, " undef undef " by default)
       if (args.oldVersion && args.newVersion) {
-        var re = new RegExp("(values\\s+\\(\\s+.*?\\?oldVersion\\s+\\?newVersion\\s+.*?\\)\\s+\\{\\s+\\(\\s+.*?) undef undef (.*?\\s+\\)\\s+\\})", "i");
+        var re = new RegExp("(values\\s+\\(\\s+.*?\\?oldVersion\\s+\\?newVersion\\s+.*?\\)\\s+\\{\\s+\\(\\s+.*?\\s+)undef undef(.*?\\s+\\)\\s+\\})", "i");
         query = query.replace(re, "$1" + " \"" + args.oldVersion + "\" \"" + args.newVersion + "\" " + "$2");
       }
       // q+d conceptType value replacement
       // (zbwext:Descriptor by default)
       if (args.conceptType) {
-        var re = new RegExp("(values\\s+\\(\\s+.*?\\?conceptType\\s+\\)\\s+\\{\\s+\\(\\s+.*?\")zbwext:Descriptor(\"\\s+\\)\\s+\\})", "i");
+        var re = new RegExp("(values\\s+\\(\\s+.*?\\?conceptType\\s+.*?\\)\\s+\\{\\s+\\(\\s+.*?\\s+)zbwext:Descriptor(.*?\\s+\\)\\s+\\})", "i");
         query = query.replace(re, "$1" + args.conceptType + "$2");
       }
       yasqe.setValue(query);
