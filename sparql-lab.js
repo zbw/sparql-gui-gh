@@ -13,7 +13,7 @@ var consumeUrl = function(yasqe, args) {
   }
   // display the endpoint url on the page
   document.getElementById("endpoint_url").innerHTML = yasqe.options.sparql.endpoint;
-  if (args.hide) {
+  if (args.hide && args.hide != 0) {
     document.getElementById("yasqe").style.display = "none";
     document.getElementById("results").style.display = "none";
     document.getElementById("results-link").style.display = "none";
@@ -39,7 +39,25 @@ var consumeUrl = function(yasqe, args) {
 
     // get the query and exexcute
     $.get(args.queryRef, function(data) {
-      yasqe.setValue(atob(data.content));
+      var query = atob(data.content);
+      // q+d versionHistorySet value replacement (must be first value parameter)
+      if (args.versionHistoryGraph) {
+        var re = new RegExp("(values\\s+\\(\\s+\\?versionHistoryGraph\\s+.*?\\s+\\)\\s+\\{\\s+\\(\\s+<)\\S+(>\\s+.*?\\s+\\)\\s+\\})", "i");
+        query = query.replace(re, "$1" + args.versionHistoryGraph + "$2");
+      }
+      // q+d language value replacement (must be last value parameter)
+      if (args.language) {
+        var re = new RegExp("(values\\s+\\(\\s+.*?\\?language\\s+\\)\\s+\\{\\s+\\(\\s+.*?\")\\w\\w(\"\\s+\\)\\s+\\})", "i");
+        query = query.replace(re, "$1" + args.language + "$2");
+      }
+      // q+d oldVersion and newVersion value replacement (must be
+      // adjacent value parameters, undef by default)
+      if (args.oldVersion && args.newVersion) {
+        var re = new RegExp("(values\\s+\\(\\s+.*?\\?oldVersion\\s+\\?newVersion\\s+.*?\\)\\s+\\{\\s+\\(\\s+.*?) undef undef (.*?\\s+\\)\\s+\\})", "i");
+        query = query.replace(re, "$1" + " \"" + args.oldVersion + "\" \"" + args.newVersion + "\" " + "$2");
+        alert(query);
+      }
+      yasqe.setValue(query);
       yasqe.query();
     });
   }
@@ -69,11 +87,12 @@ YASR.plugins.table.defaults.fetchTitlesFromPreflabel = false;
 YASR.plugins.table.defaults.datatable.pageLength = 50;
 YASR.plugins.pivot.defaults.mergeLabelsWithUris = true;
 // don't load google content (protect privacy)
-YASR.plugins.pivot.defaults.useGChart = false;
+YASR.plugins.pivot.defaults.useGoogleCharts = false;
 
 var yasr = YASR(document.getElementById("yasr"), {
   //this way, the URLs in the results are prettified using the defined prefixes in the query
-  getUsedPrefixes: yasqe.getPrefixesFromQuery
+  getUsedPrefixes: yasqe.getPrefixesFromQuery,
+  useGoogleCharts: false
 });
  
 //link yasqe and yasr together
