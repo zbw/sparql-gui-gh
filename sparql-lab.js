@@ -37,6 +37,9 @@ var consumeUrl = function(yasqe, args) {
     var found = query_uri.match(re);
     document.getElementById("repo").innerHTML = found[1];
     document.getElementById("query_reference").innerHTML = found[2];
+    if (document.getElementById("sub_title")) {
+      document.getElementById("sub_title").innerHTML = found[2];
+    }
     document.title = found[2] + ' | SPARQL Lab';
 
     // get the query and exexcute
@@ -57,6 +60,9 @@ var consumeUrl = function(yasqe, args) {
       if (args.oldVersion && args.newVersion) {
         var re = new RegExp("(values\\s+\\(\\s+.*?\\?oldVersion\\s+\\?newVersion\\s+.*?\\)\\s+\\{\\s+\\(\\s+.*?\\s+)undef undef(.*?\\s+\\)\\s+\\})", "i");
         query = query.replace(re, "$1" + " \"" + args.oldVersion + "\" \"" + args.newVersion + "\" " + "$2");
+        if (document.getElementById("new_version")) {
+          document.getElementById("new_version").innerHTML = "v " + args.newVersion;
+        }
       }
       // q+d conceptType value replacement
       // (zbwext:Descriptor by default)

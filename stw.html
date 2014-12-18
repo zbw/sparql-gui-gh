@@ -3,7 +3,7 @@
 
 <head>
 <meta charset="utf-8">
-<title>STW change reports (beta)</title>
+<title>STW Change Reports (beta)</title>
 <link href="../styles/labs.css" rel="stylesheet" type="text/css" />
 <link href="//cdn.jsdelivr.net/yasqe/2.2.6/yasqe.min.css" rel="stylesheet" type="text/css" />
 <link href="//cdn.jsdelivr.net/yasr/2.4.1/yasr.min.css" rel="stylesheet" type="text/css" />
@@ -27,12 +27,8 @@
 
 <body>
 
-<h1 class="yasr" style="font-size: 110%">STW change reports (beta)</h1>
-
-<p class="yasr">Endpoint: <span id="endpoint_url">?</span>,
-GitHub repo: <span id="repo">?</span>,
-query: <strong id="query_reference">?</strong>.<br />
-<a id="results-link" href="#results">Jump to query results</a></p>
+<h1 class="yasr" style="font-size: 138.5%">STW <span id="new_version"></span> Change Reports (beta)</h1>
+<h2 class="yasr" id="sub_title" style="font-size: 116%"></h2>
 
 <div id="yasqe"></div>
 
@@ -40,6 +36,11 @@ query: <strong id="query_reference">?</strong>.<br />
 <div id="yasr"></div>
 
 <footer style="clear: both">
+
+<p id="query_info" class="yasr" style="font-size: 77%">Endpoint: <span id="endpoint_url">?</span>,
+GitHub repo: <span id="repo">?</span>,
+query: <strong id="query_reference">?</strong>. <span id="results-link"></span></p>
+
 <div class="yasr"><a href="http://zbw.eu/labs"><img class="logos"
 src="http://zbw.eu/labs/sites/all/themes/custom/zenlabs/images/zbw-labs-logo-left.gif"
 style="height: 70px; margin-bottom: 15px; margin-left: 5px;" alt="ZBW Labs" /></a> &#160;
