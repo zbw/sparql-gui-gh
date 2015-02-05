@@ -19,7 +19,7 @@ var consumeUrl = function(yasqe, args) {
     document.getElementById("yasqe").style.display = "none";
     document.getElementById("results").style.display = "none";
     document.getElementById("results-link").style.display = "none";
-    YASR.defaults.drawOutputSelector = false;
+    //YASR.defaults.drawOutputSelector = false;
   }
 
   //want to consume other arguments such as the request type (POST/GET), or arguments to send to endpoint
