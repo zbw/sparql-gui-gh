@@ -47,7 +47,7 @@ var consumeUrl = function(yasqe, args) {
       var query = atob(data.content);
       // q+d versionHistorySet value replacement (must be first value parameter)
       if (args.versionHistoryGraph) {
-        var re = new RegExp("(values\\s+\\(\\s+\\?versionHistoryGraph\\s+.*?\\s+\\)\\s+\\{\\s+\\(\\s+<)\\S+(>\\s+.*?\\s+\\)\\s+\\})", "i");
+        var re = new RegExp("(values\\s+\\(\\s+\\?versionHistoryGraph.*?\\s+\\)\\s+\\{\\s+\\(\\s+<)\\S+(>.*?\\s+\\)\\s+\\})", "i");
         query = query.replace(re, "$1" + args.versionHistoryGraph + "$2");
       }
       // q+d language value replacement (must be last value parameter)
