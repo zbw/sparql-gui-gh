@@ -1,9 +1,12 @@
-// SPARQL Lab glue code
+/*
+ SPARQL Lab glue code
 
-// from an example at https://gist.github.com/LaurensRietveld/eebde750f87c52cdfa58
+ derived from an example at https://gist.github.com/LaurensRietveld/eebde750f87c52cdfa58
+ */
+
 var consumeUrl = function(yasqe, args) {
 
-  //change query and endpoint value if there are any
+  // change query and endpoint value if there are any
   if (args.query) {
     yasqe.setValue(args.query);
     yasqe.query();
@@ -42,23 +45,24 @@ var consumeUrl = function(yasqe, args) {
     }
     document.title = found[2] + ' | SPARQL Lab';
 
-    // get the query and exexcute
+    // get the query and execute
     $.get(args.queryRef, function(data) {
       var query = atob(data.content);
       // q+d versionHistorySet value replacement (must be first value parameter)
+      var re;
       if (args.versionHistoryGraph) {
-        var re = new RegExp("(values\\s+\\(\\s+\\?versionHistoryGraph.*?\\s+\\)\\s+\\{\\s+\\(\\s+<)\\S+(>.*?\\s+\\)\\s+\\})", "i");
+        re = new RegExp("(values\\s+\\(\\s+\\?versionHistoryGraph.*?\\s+\\)\\s+\\{\\s+\\(\\s+<)\\S+(>.*?\\s+\\)\\s+\\})", "i");
         query = query.replace(re, "$1" + args.versionHistoryGraph + "$2");
       }
       // q+d language value replacement (must be last value parameter)
       if (args.language) {
-        var re = new RegExp("(values\\s+\\(\\s+.*?\\?language\\s+\\)\\s+\\{\\s+\\(\\s+.*?\")\\w\\w(\"\\s+\\)\\s+\\})", "i");
+        re = new RegExp("(values\\s+\\(\\s+.*?\\?language\\s+\\)\\s+\\{\\s+\\(\\s+.*?\")\\w\\w(\"\\s+\\)\\s+\\})", "i");
         query = query.replace(re, "$1" + args.language + "$2");
       }
       // q+d oldVersion and newVersion value replacement (must be
       // adjacent value parameters, " undef undef " by default)
       if (args.oldVersion && args.newVersion) {
-        var re = new RegExp("(values\\s+\\(\\s+.*?\\?oldVersion\\s+\\?newVersion\\s+.*?\\)\\s+\\{\\s+\\(\\s+.*?\\s+)undef undef(.*?\\s+\\)\\s+\\})", "i");
+        re = new RegExp("(values\\s+\\(\\s+.*?\\?oldVersion\\s+\\?newVersion\\s+.*?\\)\\s+\\{\\s+\\(\\s+.*?\\s+)undef undef(.*?\\s+\\)\\s+\\})", "i");
         query = query.replace(re, "$1" + " \"" + args.oldVersion + "\" \"" + args.newVersion + "\" " + "$2");
         if (document.getElementById("new_version")) {
           document.getElementById("new_version").innerHTML = "v " + args.newVersion;
@@ -67,7 +71,7 @@ var consumeUrl = function(yasqe, args) {
       // q+d conceptType value replacement
       // (zbwext:Descriptor by default)
       if (args.conceptType) {
-        var re = new RegExp("(values\\s+\\(\\s+.*?\\?conceptType\\s+.*?\\)\\s+\\{\\s+\\(\\s+.*?\\s+)zbwext:Descriptor(.*?\\s+\\)\\s+\\})", "i");
+        re = new RegExp("(values\\s+\\(\\s+.*?\\?conceptType\\s+.*?\\)\\s+\\{\\s+\\(\\s+.*?\\s+)zbwext:Descriptor(.*?\\s+\\)\\s+\\})", "i");
         query = query.replace(re, "$1" + args.conceptType + "$2");
       }
       yasqe.setValue(query);
@@ -84,7 +88,7 @@ var yasqe = YASQE(document.getElementById("yasqe"), {
   indentUnit: 2,
   extraKeys: {
     Tab: function(cm) {
-      var spaces = Array(cm.getOption("indentUnit") + 1).join(" ");
+      var spaces = new Array(cm.getOption("indentUnit") + 1).join(" ");
       cm.replaceSelection(spaces);
     }
   },
@@ -101,7 +105,7 @@ YASR.plugins.table.defaults.datatable.pageLength = 50;
 YASR.plugins.pivot.defaults.mergeLabelsWithUris = true;
 // don't load google content (protect privacy)
 YASR.plugins.pivot.defaults.useGoogleCharts = false;
-// disable persitency
+// disable persistency
 YASR.defaults.persistency.prefix = false;
 
 var yasr = YASR(document.getElementById("yasr"), {
@@ -110,6 +114,5 @@ var yasr = YASR(document.getElementById("yasr"), {
   useGoogleCharts: false
 });
  
-//link yasqe and yasr together
+// link yasqe and yasr together
 yasqe.options.sparql.callbacks.complete = yasr.setResponse;
-

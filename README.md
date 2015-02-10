@@ -12,7 +12,8 @@ An installation is publicly available - without any warranties - at
 http://zbw.eu/beta/sparql-lab. It's main purpose is supporting [ZBW
 Labs](http://zbw.eu/labs) projects such as
 [sparql-queries](../../../sparql-queries) and
-[skos-history](../../../skos-history).
+[skos-history](../../../skos-history). Additionally, it is used in
+[STW Thesaurus for Economics Change Reports (beta)](http://zbw.eu/stw/versions/latest/version_changes).
 
 Example:
 http://zbw.eu/beta/sparql-lab/?queryRef=https://api.github.com/repos/jneubert/sparql-queries/contents/class_overview.rq&endpoint=http://data.nobelprize.org/sparql
@@ -24,6 +25,4 @@ Remote endpoints have to be
 [CORS](https://en.wikipedia.org/wiki/Cross-origin_resource_sharing) enabled for
 this to work).
 
-The URL parameter &hide={anyvalue} hides the query editing area and the switch
-for raw results.
-
+The URL parameter &hide=1 hides the query editing area.
