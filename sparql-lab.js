@@ -76,8 +76,8 @@ var consumeUrl = function(yasqe, args) {
         re = new RegExp("(values\\s+\\(\\s+.*?\\?conceptType\\s+.*?\\)\\s+\\{\\s+\\(\\s+.*?\\s+)zbwext:Descriptor(.*?\\s+\\)\\s+\\})", "i");
         query = query.replace(re, "$1" + args.conceptType + "$2");
       }
-      yasqe.setValue(query);
       yasqe.query();
+      yasqe.setBackdrop(false);
     });
   }
 };
@@ -85,6 +85,8 @@ var consumeUrl = function(yasqe, args) {
 var yasqe = YASQE(document.getElementById("yasqe"), {
   // display full query
   viewportMargin: Infinity,
+  // grey edit window during query execution
+  backdrop : 99,
   // modify codemirror tab handling to solely use 2 spaces
   tabSize: 2,
   indentUnit: 2,
@@ -118,6 +120,6 @@ var yasr = YASR(document.getElementById("yasr"), {
  
 // link yasqe and yasr together
 yasqe.options.sparql.callbacks.complete = function() {
-  document.getElementById('yasr').scrollIntoView()
   window.yasr.setResponse.apply(this, arguments);
+  document.getElementById('results').scrollIntoView()
 }
