@@ -4,6 +4,8 @@
  derived from an example at https://gist.github.com/LaurensRietveld/eebde750f87c52cdfa58
  */
 
+"use strict"
+
 var consumeUrl = function(yasqe, args) {
 
   // change query and endpoint value if there are any
@@ -115,4 +117,7 @@ var yasr = YASR(document.getElementById("yasr"), {
 });
  
 // link yasqe and yasr together
-yasqe.options.sparql.callbacks.complete = yasr.setResponse;
+yasqe.options.sparql.callbacks.complete = function() {
+  document.getElementById('yasr').scrollIntoView()
+  window.yasr.setResponse.apply(this, arguments);
+}
