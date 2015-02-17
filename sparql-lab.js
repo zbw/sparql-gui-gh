@@ -76,8 +76,8 @@ var consumeUrl = function(yasqe, args) {
         re = new RegExp("(values\\s+\\(\\s+.*?\\?conceptType\\s+.*?\\)\\s+\\{\\s+\\(\\s+.*?\\s+)zbwext:Descriptor(.*?\\s+\\)\\s+\\})", "i");
         query = query.replace(re, "$1" + args.conceptType + "$2");
       }
+      yasqe.setValue(query);
       yasqe.query();
-      yasqe.setBackdrop(false);
     });
   }
 };
