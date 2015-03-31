@@ -8,11 +8,7 @@
 
 var consumeUrl = function(yasqe, args) {
 
-  // change query and endpoint value if there are any
-  if (args.query) {
-    yasqe.setValue(args.query);
-    yasqe.query();
-  }
+  // change endpoint value if there is any
   if (args.endpoint) {
     yasqe.options.sparql.endpoint = args.endpoint;
   } else {
@@ -31,10 +27,16 @@ var consumeUrl = function(yasqe, args) {
   //feel free to add them in this function as well.
   //as you see, all options you can specify in the default settings, are configurable via yasqe.options as well
 
+  // change query value if provided in URL
+  // (takes precedence over queryref)
+  if (args.query) {
+    yasqe.setValue(args.query);
+    yasqe.query();
+  }
   //Or, if you want to configure yasqe via a remote url (e.g. a query in some file elsewhere),
   //feel free to do so!
   //This example uses a cors proxy to access a github file containing a query
-  if (args.queryRef) {
+  else if (args.queryRef) {
 
     // display query reference
     var re = new RegExp("https://api.github.com/repos/(.*?)/contents/(.*)");
