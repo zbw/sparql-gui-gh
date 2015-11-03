@@ -35,23 +35,48 @@ var consumeUrl = function(yasqe, args) {
   }
   //Or, if you want to configure yasqe via a remote url (e.g. a query in some file elsewhere),
   //feel free to do so!
-  //This example uses a cors proxy to access a github file containing a query
   else if (args.queryRef) {
+    var re, query_host;
+
+    // distinguish by host name -
+    // get the host name / first part of the URL
+    switch(args.queryRef.match(/^.*?\/\/(.*?)\//)[1]) {
+      // IIPT repository - available only within the ZBW intranet
+      case 'ite-git' :
+        query_host = 'IIPT';
+        re =  new RegExp("http://ite-git/gitlist/(.*?)\.git/raw/master/(.*)");
+        break;
+      // GitHub repository - use a cors proxy to access a github file
+      case 'api.github.com' :
+        query_host = 'GitHub';
+        re =  new RegExp("https://api.github.com/repos/(.*?)/contents/(.*)");
+        break;
+    }
 
     // display query reference
-    var re = new RegExp("https://api.github.com/repos/(.*?)/contents/(.*)");
-    var query_uri = args.queryRef;
-    var found = query_uri.match(re);
-    document.getElementById("repo").innerHTML = found[1];
-    document.getElementById("query_reference").innerHTML = found[2];
-    if (document.getElementById("sub_title")) {
-      document.getElementById("sub_title").innerHTML = found[2];
+    document.getElementById("query_details").innerHTML = "Query: " + args.queryRef;
+    document.title = 'SPARQL Lab';
+    if (typeof re !== 'undefined') {
+      var found = args.queryRef.match(re);
+      if (found) {
+        document.getElementById("query_details").innerHTML =
+          query_host + " repo: " + found[1] + ", Query: " + found[2];
+        document.title = found[2] + ' | SPARQL Lab';
+      }
     }
-    document.title = found[2] + ' | SPARQL Lab';
 
     // get the query and execute
     $.get(args.queryRef, function(data) {
-      var query = atob(data.content);
+      var query;
+
+      // a repository may return the query directly, or,
+      // in case of Github, as a JSON data structure with encoded content
+      if (query_host === 'GitHub') {
+        query = atob(data.content);
+      } else {
+        query = data;
+      }
+
       // q+d versionHistorySet value replacement (must be first value parameter)
       var re;
       if (args.versionHistoryGraph) {
@@ -83,7 +108,7 @@ var consumeUrl = function(yasqe, args) {
     });
   }
 };
- 
+
 var yasqe = YASQE(document.getElementById("yasqe"), {
   // display full query
   viewportMargin: Infinity,
@@ -119,7 +144,7 @@ var yasr = YASR(document.getElementById("yasr"), {
   getUsedPrefixes: yasqe.getPrefixesFromQuery,
   useGoogleCharts: false
 });
- 
+
 // link yasqe and yasr together
 yasqe.options.sparql.callbacks.complete = function() {
   window.yasr.setResponse.apply(this, arguments);
