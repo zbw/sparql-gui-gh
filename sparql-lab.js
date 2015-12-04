@@ -1,12 +1,105 @@
 /*
  SPARQL Lab glue code
-
  derived from an example at https://gist.github.com/LaurensRietveld/eebde750f87c52cdfa58
+
+ IDE for SPARQL queries based on YASGUI.
+ Optionally, load a query from a remote repository.
+ Optionally, substitute VALUES parameters in the query.
  */
 
 "use strict";
-
 var consumeUrl, setPageVars;
+
+// Certain arguments are interpreted by this code, and cannot be used to
+// modify SPARQL VALUES parameters:
+var reservedArgumentNames = ['endpoint', 'query', 'queryRef', 'hide'];
+
+// The following VALUES replacement code originates from
+// https://raw.githubusercontent.com/NatLibFi/Finto-data/04f88fd31200238fe1e094377e4248ef40fbe3f2/tools/ysa-to-yso/ysa-to-yso.js
+// by Osma Suominen
+
+// This regular expression will parse a VALUES clause from a SPARQL query
+// and return the following match groups:
+// 0: the whole VALUES clause
+// 1: opening clause e.g. "VALUES (?var1 ?var2) {"
+// 2: variables e.g. "?var1 ?var2"
+// 3: content of the block (everything within {})
+// 4: closing "}"
+var valuesBlockRegExp = /(VALUES\s+\(([^)]+)\)\s+\{)([^}]*?)([ \t]*})/i;
+
+// This regular expression matches SPARQL variable names from the
+// variable list of a VALUES clause.
+// e.g. ["var1", "var2"], no question marks
+var variableNamesRegExp = /\w+/g;
+
+// This regular expression matches a single row of a VALUES clause,
+// i.e. a set of values enclosed in parentheses. Match groups:
+// 1: the content of the row (i.e. what is within the parentheses)
+var valueRowRegExp = /\(\s+([^\)]*\s+)/;
+// Same as above, but with the global flag, so matches several rows.
+var valueRowRegExp_all = /\(\s+([^\)]*\s+)/g;
+
+// This regular expression matches all individual values from a VALUES row:
+// either URI tokens (full URI or qname), or literals in quotation marks.
+var individualValueRegExp = /(?:[^\s"]+|"[^"]*")+/g;
+
+function getVariables(query) {
+  var matches = valuesBlockRegExp.exec(query);
+  if (matches == null) return [];
+  var variables = matches[2].match(variableNamesRegExp);
+  return variables;
+}
+
+function getDefaultValues(query) {
+  var matches = valuesBlockRegExp.exec(query);
+  if (matches == null) return {};
+  var valueRows = matches[3].match(valueRowRegExp_all);
+  var defaultValueRow = valueRows[0].match(valueRowRegExp)[1];
+  var originalValues = defaultValueRow.match(individualValueRegExp);
+
+  var variables = getVariables(query);
+  var defaultValues = {};
+  for (var i = 0; i < variables.length; ++i) {
+    defaultValues[variables[i]] = originalValues[i];
+  }
+  return defaultValues;
+}
+
+function replaceQueryValues(query, newValues) {
+  var values = getDefaultValues(query);
+  $.each(newValues, function (key, value) {
+    // need to determine proper quoting for the values
+    if (!values.hasOwnProperty(key) || values[key][0] == '"') {
+      // a literal value - make sure it's quoted
+      if (value[0] != '"') {
+        values[key] = JSON.stringify(value);
+      } else { // already in quotes
+        values[key] = value;
+      }
+    } else {
+      // a resource value, either full URI or qname
+      if (value.indexOf('http') == 0) {
+        // make sure full URIs are enclosed in angle brackets
+        values[key] = "<" + value + ">";
+      } else {
+        values[key] = value;
+      }
+    }
+  });
+
+  var variables = getVariables(query);
+
+  var vals = $.map(variables, function (varname) {
+    return values[varname];
+  });
+  var valueString = "( " + vals.join(" ") + " )";
+  var matches = valuesBlockRegExp.exec(query);
+  if (matches == null) return query;
+  var newquery = query.replace(valuesBlockRegExp, matches[1] + "\n" + valueString + "\n" + matches[4]);
+
+  return newquery;
+}
+// end of VALUES replacement code
 
 consumeUrl = function (yasqe, args) {
   var pageVars = {};
@@ -21,7 +114,7 @@ consumeUrl = function (yasqe, args) {
       yasqe.options.sparql.endpoint = args.endpoint;
     }
 
-    if (args.hide && args.hide !== 0) {
+    if (args.hide && args.hide === "1") {
       document.getElementById("yasqe").style.display = "none";
       document.getElementById("results").style.display = "none";
       document.getElementById("results-link").style.display = "none";
@@ -81,32 +174,12 @@ consumeUrl = function (yasqe, args) {
           query = data;
         }
 
-        // q+d versionHistorySet value replacement (must be first value parameter)
-        if (args.versionHistoryGraph) {
-          re = new RegExp("(values\\s+\\(\\s+\\?versionHistoryGraph.*?\\s+\\)\\s+\\{\\s+\\(\\s+<)\\S+(>.*?\\s+\\)\\s+\\})", "i");
-          query = query.replace(re, "$1" + args.versionHistoryGraph + "$2");
-        }
-        // q+d language value replacement (must be last value parameter)
-        if (args.language) {
-          re = new RegExp("(values\\s+\\(\\s+.*?\\?language\\s+\\)\\s+\\{\\s+\\(\\s+.*?\")\\w\\w(\"\\s+\\)\\s+\\})", "i");
-          query = query.replace(re, "$1" + args.language + "$2");
-        }
-        // q+d oldVersion and newVersion value replacement (must be
-        // adjacent value parameters, " undef undef " by default)
-        if (args.oldVersion && args.newVersion) {
-          re = new RegExp("(values\\s+\\(\\s+.*?\\?oldVersion\\s+\\?newVersion\\s+.*?\\)\\s+\\{\\s+\\(\\s+.*?\\s+)undef undef(.*?\\s+\\)\\s+\\})", "i");
-          query = query.replace(re, "$1" + " \"" + args.oldVersion + "\" \"" + args.newVersion + "\" " + "$2");
-          if (document.getElementById("new_version")) {
-            document.getElementById("new_version").innerHTML = "v " + args.newVersion;
-          }
-        }
-        // q+d conceptType value replacement
-        // (zbwext:Descriptor by default)
-        if (args.conceptType) {
-          re = new RegExp("(values\\s+\\(\\s+.*?\\?conceptType\\s+.*?\\)\\s+\\{\\s+\\(\\s+.*?\\s+)zbwext:Descriptor(.*?\\s+\\)\\s+\\})", "i");
-          query = query.replace(re, "$1" + args.conceptType + "$2");
-        }
-        yasqe.setValue(query);
+        // replace VALUES parameters
+        // TODO replace with proper code to extract URL arguments
+        var newValues = {language: "de", versionHistoryGraph: "http://zbw.eu/stw/version"};
+        var newQuery = replaceQueryValues(query, newValues);
+
+        yasqe.setValue(newQuery);
         yasqe.query();
       });
     }
