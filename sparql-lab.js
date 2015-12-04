@@ -6,7 +6,10 @@
 
 "use strict";
 
-var consumeUrl = function (yasqe, args) {
+var consumeUrl, setPageVars;
+
+consumeUrl = function (yasqe, args) {
+  var pageVars = {};
 
   // default settings
   yasqe.options.sparql.endpoint = "http://zbw.eu/beta/sparql/stwv/query";
@@ -38,32 +41,31 @@ var consumeUrl = function (yasqe, args) {
     //Or, if you want to configure yasqe via a remote url (e.g. a query in some file elsewhere),
     //feel free to do so!
     else if (args.queryRef) {
-      var re, query_host;
+      var re, queryHost;
 
-      // distinguish by host name -
+      // distinguish by host  name -
       // get the host name / first part of the URL
-      switch (args.queryRef.match(/^.*?\/\/(.*?)\//)[1]) {
+      switch (args.queryRef.match("^http[s]?://([a-zA-Z0-9_\\.-]+?)/.*")[1]) {
         // IIPT repository - available only within the ZBW intranet
         case 'ite-git':
-          query_host = 'IIPT';
+          queryHost = 'IIPT';
           re = new RegExp("http://ite-git/gitlist/(.*?)\\.git/raw/master/(.*)");
           break;
         // GitHub repository - use a cors proxy to access a github file
         case 'api.github.com':
-          query_host = 'GitHub';
+          queryHost = 'GitHub';
           re = new RegExp("https://api.github.com/repos/(.*?)/contents/(.*)");
           break;
       }
 
-      // display query reference
-      document.getElementById("query_details").innerHTML = "Query: " + args.queryRef;
-      document.title = 'SPARQL Lab';
+      // set variables for use in HTML page
+      pageVars.queryRef = args.queryRef;
+      pageVars.queryHost = queryHost;
       if (re !== 'undefined') {
         var found = args.queryRef.match(re);
         if (found) {
-          document.getElementById("query_details").innerHTML =
-              query_host + " repo: " + found[1] + ", Query: " + found[2];
-          document.title = found[2] + ' | SPARQL Lab';
+          pageVars.queryRepo = found[1];
+          pageVars.queryFile = found[2];
         }
       }
 
@@ -73,7 +75,7 @@ var consumeUrl = function (yasqe, args) {
 
         // a repository may return the query directly, or,
         // in case of Github, as a JSON data structure with encoded content
-        if (query_host === 'GitHub') {
+        if (queryHost === 'GitHub') {
           query = atob(data.content);
         } else {
           query = data;
@@ -109,8 +111,25 @@ var consumeUrl = function (yasqe, args) {
       });
     }
   }
-  // display the endpoint url on the page
-  document.getElementById("endpoint_url").innerHTML = yasqe.options.sparql.endpoint;
+  // set more variables for use in HTML page, and modify it
+  pageVars.endpoint = yasqe.options.sparql.endpoint;
+  setPageVars(pageVars);
+};
+
+// set specific elements on the html page
+setPageVars = function (vars) {
+  // endpoint has to be defined
+  document.getElementById("endpoint_url").innerHTML = vars.endpoint;
+  // additionally, if queryRef was assigned
+  if (vars.queryRef) {
+    document.getElementById("query_details").innerHTML = "Query: " + vars.queryRef;
+  }
+  // additionally, if the query reference could be parsed and split up
+  if (vars.queryRepo) {
+    document.getElementById("query_details").innerHTML =
+        vars.queryHost + " repo: " + vars.queryRepo + ", Query: " + vars.queryFile;
+    document.title = vars.queryFile + ' | SPARQL Lab';
+  }
 };
 
 var yasqe = YASQE(document.getElementById("yasqe"), {
