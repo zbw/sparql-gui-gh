@@ -68,7 +68,9 @@ function replaceQueryValues(query, newValues) {
   var values = getDefaultValues(query);
   $.each(newValues, function (key, value) {
     // need to determine proper quoting for the values
-    if (!values.hasOwnProperty(key) || values[key][0] == '"') {
+    // (for 'undef' in the default values, we can't know what is expected,
+    // and presume a literal value will fit in most cases)
+    if (!values.hasOwnProperty(key) || values[key][0] == '"' || values[key] == 'undef') {
       // a literal value - make sure it's quoted
       if (value[0] != '"') {
         values[key] = JSON.stringify(value);
