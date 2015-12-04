@@ -4,9 +4,9 @@
  derived from an example at https://gist.github.com/LaurensRietveld/eebde750f87c52cdfa58
  */
 
-"use strict"
+"use strict";
 
-var consumeUrl = function(yasqe, args) {
+var consumeUrl = function (yasqe, args) {
 
   // change endpoint value if there is any
   if (args.endpoint) {
@@ -16,7 +16,7 @@ var consumeUrl = function(yasqe, args) {
   }
   // display the endpoint url on the page
   document.getElementById("endpoint_url").innerHTML = yasqe.options.sparql.endpoint;
-  if (args.hide && args.hide != 0) {
+  if (args.hide && args.hide !== 0) {
     document.getElementById("yasqe").style.display = "none";
     document.getElementById("results").style.display = "none";
     document.getElementById("results-link").style.display = "none";
@@ -40,33 +40,33 @@ var consumeUrl = function(yasqe, args) {
 
     // distinguish by host name -
     // get the host name / first part of the URL
-    switch(args.queryRef.match(/^.*?\/\/(.*?)\//)[1]) {
+    switch (args.queryRef.match(/^.*?\/\/(.*?)\//)[1]) {
       // IIPT repository - available only within the ZBW intranet
-      case 'ite-git' :
+      case 'ite-git':
         query_host = 'IIPT';
-        re =  new RegExp("http://ite-git/gitlist/(.*?)\.git/raw/master/(.*)");
+        re = new RegExp("http://ite-git/gitlist/(.*?)\\.git/raw/master/(.*)");
         break;
       // GitHub repository - use a cors proxy to access a github file
-      case 'api.github.com' :
+      case 'api.github.com':
         query_host = 'GitHub';
-        re =  new RegExp("https://api.github.com/repos/(.*?)/contents/(.*)");
+        re = new RegExp("https://api.github.com/repos/(.*?)/contents/(.*)");
         break;
     }
 
     // display query reference
     document.getElementById("query_details").innerHTML = "Query: " + args.queryRef;
     document.title = 'SPARQL Lab';
-    if (typeof re !== 'undefined') {
+    if (re !== 'undefined') {
       var found = args.queryRef.match(re);
       if (found) {
         document.getElementById("query_details").innerHTML =
-          query_host + " repo: " + found[1] + ", Query: " + found[2];
+            query_host + " repo: " + found[1] + ", Query: " + found[2];
         document.title = found[2] + ' | SPARQL Lab';
       }
     }
 
     // get the query and execute
-    $.get(args.queryRef, function(data) {
+    $.get(args.queryRef, function (data) {
       var query;
 
       // a repository may return the query directly, or,
@@ -78,7 +78,6 @@ var consumeUrl = function(yasqe, args) {
       }
 
       // q+d versionHistorySet value replacement (must be first value parameter)
-      var re;
       if (args.versionHistoryGraph) {
         re = new RegExp("(values\\s+\\(\\s+\\?versionHistoryGraph.*?\\s+\\)\\s+\\{\\s+\\(\\s+<)\\S+(>.*?\\s+\\)\\s+\\})", "i");
         query = query.replace(re, "$1" + args.versionHistoryGraph + "$2");
@@ -113,12 +112,12 @@ var yasqe = YASQE(document.getElementById("yasqe"), {
   // display full query
   viewportMargin: Infinity,
   // grey edit window during query execution
-  backdrop : 99,
+  backdrop: 99,
   // modify codemirror tab handling to solely use 2 spaces
   tabSize: 2,
   indentUnit: 2,
   extraKeys: {
-    Tab: function(cm) {
+    Tab: function (cm) {
       var spaces = new Array(cm.getOption("indentUnit") + 1).join(" ");
       cm.replaceSelection(spaces);
     }
@@ -146,7 +145,7 @@ var yasr = YASR(document.getElementById("yasr"), {
 });
 
 // link yasqe and yasr together
-yasqe.options.sparql.callbacks.complete = function() {
+yasqe.options.sparql.callbacks.complete = function () {
   window.yasr.setResponse.apply(this, arguments);
-  document.getElementById('results').scrollIntoView()
-}
+  document.getElementById('results').scrollIntoView();
+};
