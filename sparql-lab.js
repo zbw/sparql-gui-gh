@@ -8,7 +8,6 @@
  */
 
 "use strict";
-var consumeUrl, setPageVars;
 
 // Certain arguments are interpreted by this code, and cannot be used to
 // modify SPARQL VALUES parameters:
@@ -101,8 +100,23 @@ function replaceQueryValues(query, newValues) {
 }
 // end of VALUES replacement code
 
-consumeUrl = function (yasqe, args) {
+function getNewValues (args) {
+  var newValues = {};
+  $.each(args, function (key, value) {
+    // Skip if one of the reserved argument names.
+    // VALUES with these names cannot be replaced!
+    if(reservedArgumentNames.indexOf(key) == -1) {
+      newValues[key] = value;
+    }
+  });
+  return newValues;
+}
+
+var consumeUrl = function (yasqe, args) {
   var pageVars = {};
+
+  // clear query
+  yasqe.setValue('# Query loading ...');
 
   // default settings
   yasqe.options.sparql.endpoint = "http://zbw.eu/beta/sparql/stwv/query";
@@ -175,8 +189,7 @@ consumeUrl = function (yasqe, args) {
         }
 
         // replace VALUES parameters
-        // TODO replace with proper code to extract URL arguments
-        var newValues = {language: "de", versionHistoryGraph: "http://zbw.eu/stw/version"};
+        var newValues = getNewValues(args);
         var newQuery = replaceQueryValues(query, newValues);
 
         yasqe.setValue(newQuery);
@@ -190,7 +203,7 @@ consumeUrl = function (yasqe, args) {
 };
 
 // set specific elements on the html page
-setPageVars = function (vars) {
+function setPageVars (vars) {
   // endpoint has to be defined
   document.getElementById("endpoint_url").innerHTML = vars.endpoint;
   // additionally, if queryRef was assigned
