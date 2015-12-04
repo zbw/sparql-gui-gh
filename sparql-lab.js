@@ -70,7 +70,7 @@ function replaceQueryValues(query, newValues) {
     // need to determine proper quoting for the values
     // (for 'undef' in the default values, we can't know what is expected,
     // and presume a literal value will fit in most cases)
-    if (!values.hasOwnProperty(key) || values[key][0] == '"' || values[key] == 'undef') {
+    if (values[key][0] == '"' || values[key] == 'undef') {
       // a literal value - make sure it's quoted
       if (value[0] != '"') {
         values[key] = JSON.stringify(value);
@@ -90,6 +90,7 @@ function replaceQueryValues(query, newValues) {
 
   var variables = getVariables(query);
 
+  // Variables which not already defined in the VALUES clause are dropped here.
   var vals = $.map(variables, function (varname) {
     return values[varname];
   });
