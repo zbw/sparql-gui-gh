@@ -1,17 +1,18 @@
-A SPARQL GUI for queries from Github
+A SPARQL GUI for Queries from Github
 =============
 
-Load queries from GitHub repositories into an IDE-like environment in your browser, execute - and start modifying them.
+Load queries from repositories on the web into an IDE-like environment in your browser,
+execute them - and start modifying and playing with them.
 
 The installation at __http://zbw.eu/beta/sparql-lab__ primarily aims at supporting [ZBW
 Labs](http://zbw.eu/labs) projects such as
 [sparql-queries](../../../sparql-queries) and
 [skos-history](../../../skos-history). Additionally, it is used in
 [STW Thesaurus for Economics Change Reports (beta)](http://zbw.eu/stw/version/8.14/changes).
-The installation is publicly available for other purposes too - without any warranties. 
+Feel free to use the publicly available installation for other purposes - without any warranties. 
 
 This project provides mainly glue code. It makes heavy use
-of Laurens Rietveld's [YASQE](http://yasqe.yasgui.org/) and
+of Laurens Rietveld's great [YASQE](http://yasqe.yasgui.org/) and
 [YASR](http://yasr.yasgui.org/) javascript libraries, part of his
 [YASGUI](http://yasgui.org) project.
 
@@ -21,9 +22,9 @@ The script is controlled by the following URL arguments:
 
 Argument | Description
 ---------|------------
-endpoint | SPARQL endpoint (defaults to an endpoint with the STW version history). Remote endpoints have to be [CORS](https://en.wikipedia.org/wiki/Cross-origin_resource_sharing) enabled.
+endpoint | URL of a SPARQL endpoint (defaults to an endpoint with the STW version history). Remote endpoints have to be [CORS](https://en.wikipedia.org/wiki/Cross-origin_resource_sharing) enabled.
 query    | URL-encoded query text (takes precedence over queryRef if both are defined, defaults to the YASQE built-in example query if neither).
-queryRef | URL of a query on the web (no default). Works with GitHub as in the example below, and maybe with other public repository URLs too (CORS on the repository server required).
+queryRef | URL of a query on the web (no default). Works with GitHub API as in the example below, and presumably with other public repository URLs (CORS on the repository server required).
 hide     | With `hide=1`, the query pane is hidden from display (defaults to hide=0).
 
 Example: The URL
