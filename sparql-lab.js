@@ -118,9 +118,6 @@ function getNewValues (args) {
 var consumeUrl = function (yasqe, args) {
   var pageVars = {};
 
-  // clear query
-  yasqe.setValue('# Query loading ...');
-
   // default settings
   yasqe.options.sparql.endpoint = "http://zbw.eu/beta/sparql/stwv/query";
 
