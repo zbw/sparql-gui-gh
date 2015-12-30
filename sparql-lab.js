@@ -188,11 +188,15 @@ var consumeUrl = function (yasqe, args) {
           query = data;
         }
 
-        // replace VALUES parameters
+        // replace VALUES parameters, if they exist
+        // (otherwise, leave query intact, in order to allow multi-row
+        // VALUES parameters in the loaded query)
         var newValues = getNewValues(args);
-        var newQuery = replaceQueryValues(query, newValues);
+        if (!jQuery.isEmptyObject(newValues)) {
+          query = replaceQueryValues(query, newValues)
+        }
 
-        yasqe.setValue(newQuery);
+        yasqe.setValue(query);
         yasqe.query();
       });
     }
