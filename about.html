@@ -1,0 +1,187 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+       "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+
+<title>SPARQL Lab in ZBW Labs</title>
+
+<!--CSS file (default YUI Sam Skin) -->
+<link href="http://yui.yahooapis.com/combo?2.7.0/build/reset-fonts-grids/reset-fonts-grids.css&amp;2.7.0/build/autocomplete/assets/skins/sam/autocomplete.css" type="text/css" rel="stylesheet" />
+
+<link rel="stylesheet" type="text/css" href="../styles/stw.css" />
+<link rel="stylesheet" type="text/css" href="../styles/labs.css" />
+
+<!--begin custom header content for this example-->
+
+<style type="text/css">
+#suggest_ac {
+    width:40em; /* set width here or else widget will expand to fit its container */
+    padding-bottom:2em;
+}
+</style>
+
+</head>
+
+<!-- the yui-class in an enclosing element is required for the suggest box -->
+<body class="yui-skin-sam" onload="document.getElementById('suggest_input').focus()">
+
+
+  <!-- this block is only for the page layout -->
+  <div id="doc" class="yui-t2">
+    <div id="hd" class="yui-gd">
+      <div class="zbw-blue-line"></div>
+      <div class="yui-u first">
+        <a href="http://www.zbw.eu"><img src="../images/zbw-labs-logo.gif" width="424" height="97" alt="Logo: ZBW Labs" /></a>
+      </div>
+    </div>
+    <div id="bd">
+      <div id="yui-main">
+        <div class="yui-b">
+          <div class="yui-g">
+
+
+
+
+    <h1>SPARQL Lab</h1>
+
+    <p>Our public SPARQL endpoints are mostly based on Fuseki, part of the
+    <a href="http://jena.apache.org/">Apache Jena</a> Project. For more
+    information on Fuseki, <a href="#docs">see below</a>.</p>
+
+    <p>We currently offer endpoints for the following datasets. General
+    queries for exploring the endpoints can be found <a 
+    href="https://github.com/jneubert/sparql-queries#readme"
+    >here</a>.</p>
+
+    <h2>Endpoints (beta)</h2>
+
+    <h3>STW Thesarus for Economics</h3>
+
+    <p>Besides <a href="http://zbw.eu/stw">STW</a> (by <a
+    href="http://zbw.eu">ZBW</a>), this endpoint holds <a
+    href="http://zbw.eu/stw/version/latest/mapping">mappings to other
+    vocabularies</a>.</p>
+
+    <ul>
+      <li>Endpoint: <tt><a
+      href="./stw/query">http://zbw.eu/beta/sparql/stw/query</a> </tt></li>
+      <li><a
+      href="http://zbw.eu/beta/sparql-lab/?endpoint=http://zbw.eu/beta/sparql/stw/query&amp;queryRef=https://api.github.com/repos/jneubert/sparql-queries/contents/stw/search_concepts_by_text.rq"
+      >Query form</a></li>
+      <li>Further <a
+      href="https://github.com/jneubert/sparql-queries/tree/master/stw#readme">example
+      queries</a></li>
+    </ul>
+
+    <h3>Economists subset of GND</h3>
+
+    <p>Data extracted from <a
+    href="http://thedatahub.org/dataset/dnb-gemeinsame-normdatei">GND</a>
+    (by <a href="http://www.dnb.de/EN/Home/home_node.html">DNB German
+    National Library</a> and the German scientific libraries)</p>
+
+    <ul>
+      <li>Endpoint: <tt><a
+      href="./econ_pers/query">http://zbw.eu/beta/sparql/econ_pers/query</a>
+      </tt></li>
+      <li><a
+      href="http://zbw.eu/beta/sparql-lab/?endpoint=http://zbw.eu/beta/sparql/econ_pers/query&amp;queryRef=https://api.github.com/repos/jneubert/sparql-queries/contents/econ_pers/search_concepts_by_text.rq"
+      >Query form</a></li>
+    </ul>
+
+    <h3>Economics institutions subset of GND</h3>
+
+    <p>Data extracted from <a
+    href="http://thedatahub.org/dataset/dnb-gemeinsame-normdatei">GND</a> (by
+    <a href="http://www.dnb.de/EN/Home/home_node.html">DNB German National
+    Library</a> and the German scientific libraries)</p>
+    <ul>
+      <li>Endpoint: <tt><a
+      href="./econ_corp/query">http://zbw.eu/beta/sparql/econ_corp/query</a> </tt></li>
+      <li><a
+      href="http://zbw.eu/beta/sparql-lab/?endpoint=http://zbw.eu/beta/sparql/econ_corp/query&amp;queryRef=https://api.github.com/repos/jneubert/sparql-queries/contents/econ_pers/search_concepts_by_text.rq&amp;searchString=zbw"
+      >Query form</a></li>
+    </ul>
+
+    <h3>EconStor LOD</h3>
+
+    <p>Data extracted from the <a href="http://www.econstor.eu">EconStor</a>
+    repository (<a href="http://linkeddata.econstor.eu">EconStor LOD</a> is
+    created by ZBW and powered by <a href="http://d2rq.org/d2r-server">D2R
+    Server</a>)</p>
+
+    <ul>
+      <li>Endpoint: <tt><a
+      href="http://linkeddata.econstor.eu/beta/sparql">http://linkeddata.econstor.eu/beta/sparql</a>
+      </tt></li>
+      <li><a
+      href="http://linkeddata.econstor.eu/beta/snorql">Query form</a></li>
+    </ul>
+
+    <h2>Endpoints (experimental)</h2>
+
+    <h3>Integrated Authority File (GND)</h3>
+
+    <p>Data from the <a href="http://www.dnb.de/EN/lds"
+    >GND Linked Data Service</a>.</p>
+
+    <ul>
+      <li>Endpoint: <tt><a
+      href="./gnd/query">http://zbw.eu/beta/sparql/gnd/query</a> </tt></li>
+      <li><a
+      href="http://zbw.eu/beta/sparql-lab/?endpoint=http://zbw.eu/beta/sparql/gnd/query&amp;queryRef=https://api.github.com/repos/jneubert/sparql-queries/contents/gnd/persons_affiliated_to_institutions.rq"
+      >Query form</a></li>
+      <li>Further <a
+      href="https://github.com/jneubert/sparql-queries/tree/master/gnd#readme"
+      >example queries</a></li>
+    </ul>
+
+    <h2 id="docs">Standard Fuseki tools and documentation</h2>
+
+    <h3>Documentation</h3>
+    <p><a href="http://jena.apache.org/documentation/fuseki2/">Fuseki documentation</a></p>
+
+    <h3>Validators</h3>
+    <ul>
+      <li><a href="query-validator.html">SPARQL query validator</a></li>
+      <li><a href="update-validator.html">SPARQL update validator</a></li>
+      <li><a href="data-validator.html">RDF data validator</a></li>
+      <li><a href="iri-validator.html">IRI validator</a></li>
+    </ul>
+
+    <h3>Standards</h3>
+    <ul>
+      <li> <a href="http://www.w3.org/TR/sparql11-query/">SPARQL 1.1 Query</a></li>
+      <li> <a href="http://www.w3.org/TR/sparql11-update/">SPARQL 1.1 Update</a></li>
+      <li> <a href="http://www.w3.org/TR/sparql11-protocol/">SPARQL 1.1 Protocol</a></li>
+      <li> <a href="http://www.w3.org/TR/sparql11-http-rdf-update/">SPARQL 1.1 Uniform HTTP Protocol for Managing RDF Graphs</a></li>
+    </ul>
+
+  <!-- this block is only for the page layout and navigation -->
+          </div>
+        </div>
+      </div>
+
+      <div id="leftbar" class="yui-b">
+        <div id="menu">
+          <div class="bd">
+              <ul>
+
+<li><a href="../../../labs">ZBW Labs</a></li>
+
+              </ul>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <div id="ft">
+      <p class="note_small"><a rel="dcterms:creator" href="http://zbw.eu">ZBW</a>&#160;
+        (<a href="http://www.zbw.eu/e_imprint.htm">Imprint</a>)</p>
+    </div>
+
+  </div>
+
+</body></html>
