@@ -1,5 +1,5 @@
 /*
- Display SPARQL result files for STW change reports
+ Display SPARQL result files loaded from  github
  */
 
 "use strict"
