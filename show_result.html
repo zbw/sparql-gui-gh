@@ -3,7 +3,7 @@
 
 <head>
 <meta charset="utf-8">
-<title>SPARQL Lab - exploring SPARQL queries in ZBW Labs</title>
+<title>SPARQL Lab results - show cached SPARQL results</title>
 <link href="../styles/labs.css" rel="stylesheet" type="text/css" />
 <link href="//cdn.jsdelivr.net/yasqe/2.11.6/yasqe.min.css" rel="stylesheet" type="text/css" />
 <link href="//cdn.jsdelivr.net/yasr/2.10.5/yasr.min.css" rel="stylesheet" type="text/css" />
@@ -27,24 +27,26 @@
 
 <body>
 
-<h1 class="yasr" style="font-size: 110%">SPARQL Lab &#8211; exploring SPARQL queries in ZBW Labs</h1>
+<h1 class="yasr" style="font-size: 110%">SPARQL Lab results &#8211; show cached SPARQL results</h1>
 
-<p class="yasr">Endpoint: <span id="endpoint_url">?</span>,
+<p class="yasr">Result file: <span id="result_file">?</span>,
 <span id="query_details">?</span><br />
-<a href="about">About SPARQL Lab</a> &#160; &#8212; &#160; <a id="results-link" href="#results">Jump to query results</a></p>
+<a href="about">About SPARQL Lab</a></p>
 
-<div id="yasqe"></div>
-
-<h2 id="results" class="yasr" style="margin-top: 1.5em;">Results of the query:</h2>
 <div id="yasr"></div>
+
+<p style="clear:both;">&#160;</p>
+
+<p>Download <a id="jsonFile"
+href="<tmpl_var name='json_file'>">raw data</a> (JSON).</p>
+
+<p class="note_small">Query <a href="<tmpl_var name='query_source'>">source code</a>.</p>
 
 <footer style="clear: both">
 <div class="yasr"><a href="http://zbw.eu/labs"><img class="logos"
 src="http://zbw.eu/labs/sites/all/themes/custom/zenlabs/images/zbw-labs-logo-left.gif"
 style="height: 70px; margin-bottom: 15px; margin-left: 5px;" alt="ZBW Labs" /></a> &#160;
-Powered by <a href="http://yasqe.yasgui.org"><img class="logos"
-src="http://about.yasgui.org/logos/yasqe.png" alt="YASQE" /></a> and
-<a href="http://yasr.yasgui.org/"><img class="logos"
+Powered by <a href="http://yasr.yasgui.org/"><img class="logos"
 src="http://about.yasgui.org/logos/yasr.png" alt="YASR" /></a> - part of the
 <a href="http://about.yasgui.org/"><img class="logos"
 src="http://about.yasgui.org/logos/yasgui.png" alt="YASGUI" /></a> SPARQL client Javascript project.
@@ -54,6 +56,6 @@ src="http://about.yasgui.org/logos/yasgui.png" alt="YASGUI" /></a> SPARQL client
 <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
 <script src="//cdn.jsdelivr.net/yasqe/2.11.6/yasqe.bundled.min.js"></script>
 <script src="//cdn.jsdelivr.net/yasr/2.10.5/yasr.bundled.min.js"></script>
-<script src="sparql-lab.js"></script>
+<script src="show_result.js"></script>
 
 </body>
