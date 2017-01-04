@@ -17,10 +17,8 @@ YASR.plugins.pivot.defaults.useGoogleCharts = false;
 YASR.defaults.persistency.prefix = false;
 
 var yasr = YASR(document.getElementById("yasr"), {
-  //this way, the URLs in the results are prettified using the defined prefixes in the query
-  //getUsedPrefixes: yasqe.getPrefixesFromQuery,
-  drawOutputSelector: false,
-//  drawDownloadIcon: false,
+  outputPlugins: ["error", "boolean", "rawResponse", "table"],
+  drawOutputSelector: true,
   useGoogleCharts: false
 });
 
@@ -38,12 +36,12 @@ var loadResultFile = function () {
       // IIPT repository - available only within the ZBW intranet
       case 'ite-git':
         resultHost = 'IIPT';
-        re = new RegExp("http://ite-git/gitlist/(.*?)\\.git/raw/master/(.*)");
+        re = new RegExp("http://ite-git/gitlist/.*?\\.git/raw/master/(.*?)/results/(.*)");
         break;
       // GitHub repository - use a cors proxy to access a github file
       case 'api.github.com':
         resultHost = 'GitHub';
-        re = new RegExp("https://api.github.com/repos/(.*?)/contents/(.*)");
+        re = new RegExp("https://api.github.com/repos/.*?/contents/(.*?)/results/(.*)");
         break;
     }
 
