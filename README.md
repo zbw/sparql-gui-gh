@@ -63,7 +63,42 @@ WHERE {
 }
 ```
 
-## Background
+# Display of cached result files
+
+When the datasets addressed in a query are not available through public endpoints, cached result files can be provided instead of interactively executed queries.
+
+The functionality is available via the URI "/result", e.g., __http://zbw.eu/beta/sparql-lab/result__
+
+
+## URL arguments
+
+The result script is controlled by the following URL arguments:
+
+Argument | Description
+---------|------------
+queryRef | URL of a sparql-json result on the web (no default). Works with GitHub API as in the example below, and presumably with other public repository URLs (CORS on the repository server required).
+
+Example: The URL
+> http://zbw.eu/beta/sparql-lab/result?resultRef=https://api.github.com/repos/jneubert/sparql-queries/contents/wikidata/results/count_persons_by_wp_language.wikidata_2016-11-07.json
+
+retrieves and views the result stored at
+`https://github.com/jneubert/sparql-queries/blob/master/wikidata/results/count_persons_by_wp_language.wikidata_2016-11-07.json` 
+via the GitHub API.
+
+
+## Naming convention
+
+The following naming convention is used:
+
+1. A result file resides in the same repository as the query in a directory "results" below the directory containing the query.
+2. The base name of the result file is equal to the base name of the query.
+3. The versions of the datasets, which were queried, should be indicated in further file name parts, with `_` as separator between the dataset name and the version name, and `.` as seperator between multiple dataset_version statements.
+
+For example, the result of the `resultRef` in the example above was retrieved by the query `https://github.com/jneubert/sparql-queries/blob/master/wikidata/count_persons_by_wp_language.rq` against the dataset `wikidata` in version `2016-11-07`.
+
+
+
+# Background
 
 * [Joachim Neubert: Publishing SPARQL queries live](http://zbw.eu/labs/en/blog/publishing-sparql-queries-live) (ZBW Labs)
 * [Laurens Rietveld/Rinke Hoekstraa: The YASGUI Family of SPARQL Clients](http://www.semantic-web-journal.net/system/files/swj1001.pdf) (Submission to Semantic Web Journal)

@@ -1,5 +1,10 @@
 /*
  Display SPARQL result files loaded from  github
+
+ Based on the convention that all result files are stored in a directory
+ "results" below the directory containing the query, and that its file
+ basenames are equal to that of the queries.
+
  */
 
 "use strict"
@@ -28,7 +33,7 @@ var loadResultFile = function () {
   var resultRef = getUrlParameterByName('resultRef');
 
   if (resultRef) {
-    var re, resultFile, resultHost;
+    var re, resultFile, resultHost, directory, queryFile, repo, queryRef;
 
     // distinguish by host name -
     // get the host name / first part of the URL
@@ -36,24 +41,36 @@ var loadResultFile = function () {
       // IIPT repository - available only within the ZBW intranet
       case 'ite-git':
         resultHost = 'IIPT';
-        re = new RegExp("http://ite-git/gitlist/.*?\\.git/raw/master/(.*?)/results/(.*)");
+        re = new RegExp("http://ite-git/gitlist/(.*?)\\.git/raw/master/(.*?)/results/(.*)");
         break;
       // GitHub repository - use a cors proxy to access a github file
       case 'api.github.com':
         resultHost = 'GitHub';
-        re = new RegExp("https://api.github.com/repos/.*?/contents/(.*?)/results/(.*)");
+        re = new RegExp("https://api.github.com/repos/(.*?)/contents/(.*?)/results/(.*)");
         break;
     }
 
     if (re !== 'undefined') {
       var found = resultRef.match(re);
       if (found) {
-        resultFile = found[2];
+        repo = found[1];
+        directory = found[2];
+        resultFile = found[3];
+        queryFile = resultFile.split(".")[0] + ".rq";
+        switch(resultHost) {
+          case 'IIPT':
+            queryRef = "http://ite-git/gitlist/" + repo + ".git/raw/master/" + directory + "/" + queryFile;
+            break;
+          case 'GitHub':
+            queryRef = "https://github.com/" + repo + "/blob/master/" + directory + "/" + queryFile;
+            break;
+        }
       }
     }
 
     // set variable in HTML page
     document.getElementById("result_file").innerHTML = resultFile;
+    document.getElementById("query").setAttribute("href", queryRef);
 
     // get and show the result
     jQuery.getJSON(resultRef, function (data) {
