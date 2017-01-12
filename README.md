@@ -1,15 +1,16 @@
-A SPARQL GUI for Queries from Github and other web repositories
+A SPARQL GUI for Queries from Github and other web repositories - Code for SPARQL Lab
 =============
 
 Load queries from repositories on the web into an IDE-like environment in your browser,
 execute them - and start modifying and playing with them.
 
-The installation at __http://zbw.eu/beta/sparql-lab__ primarily aims at supporting [ZBW
-Labs](http://zbw.eu/labs) projects such as
+The __SPARQL Lab__ installation at __http://zbw.eu/beta/sparql-lab__ primarily
+aims at supporting [ZBW Labs](http://zbw.eu/labs) projects such as
 [sparql-queries](../../../sparql-queries) and
-[skos-history](../../../skos-history). Additionally, it is used in
-[STW Thesaurus for Economics Change Reports (beta)](http://zbw.eu/stw/version/8.14/changes).
-Feel free to use the publicly available installation for other purposes - without any warranties. 
+[skos-history](https://github.com/jneubert/skos-history). Additionally, it is
+used in [STW Thesaurus for Economics Change Reports
+(beta)](http://zbw.eu/stw/version/8.14/changes).  Feel free to use the publicly
+available installation for other purposes - without any warranties.
 
 This project provides mainly glue code. It makes heavy use
 of Laurens Rietveld's great [YASQE](http://yasqe.yasgui.org/) and
