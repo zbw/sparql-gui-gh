@@ -1,4 +1,4 @@
-A SPARQL GUI for Queries from Github and other web repositories - Code for SPARQL Lab
+A SPARQL GUI for Queries from Github and other web repositories (Code used for SPARQL Lab)
 =============
 
 Load queries from repositories on the web into an IDE-like environment in your browser,
