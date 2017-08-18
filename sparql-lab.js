@@ -201,10 +201,6 @@ var consumeUrl = function (yasqe, args) {
       });
     }
   }
-  // for wikidata endpoint, set request method to GET (default is POST)
-  if (yasqe.options.sparql.endpoint.indexOf('query.wikidata.org/') > 0) {
-    yasqe.options.sparql.requestMethod = 'GET';
-  }
 
   // set more variables for use in HTML page, and modify it
   pageVars.endpoint = yasqe.options.sparql.endpoint;
