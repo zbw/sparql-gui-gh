@@ -115,6 +115,12 @@ function getNewValues (args) {
   return newValues;
 }
 
+var extendShareLink = function (yasqe) {
+  var shareLink = YASQE.createShareLink(yasqe);
+  shareLink["endpoint"] = yasqe.options.sparql.endpoint;
+  return shareLink;
+};
+
 var consumeUrl = function (yasqe, args) {
   var pageVars = {};
 
@@ -143,7 +149,8 @@ var consumeUrl = function (yasqe, args) {
     // (takes precedence over queryref)
     if (args.query) {
       yasqe.setValue(args.query);
-      yasqe.query();
+      // asyncron execution
+      setTimeout(function() { yasqe.query(); }, 1);
     }
     //Or, if you want to configure yasqe via a remote url (e.g. a query in some file elsewhere),
     //feel free to do so!
@@ -240,6 +247,10 @@ var yasqe = YASQE(document.getElementById("yasqe"), {
   sparql: {
     showQueryButton: true
   },
+  // extended sharelink for sharelink button
+  createShareLink: extendShareLink,
+  // does not use the yasge/yasgui sharelink logic,
+  // but url get params
   consumeShareLink: consumeUrl
 });
 
