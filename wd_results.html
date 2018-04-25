@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+<meta charset="utf-8">
+<title>Articles</title>
+<link href="../styles/labs.css" rel="stylesheet" type="text/css" />
+<link href='//cdn.jsdelivr.net/npm/yasgui-yasqe@2.11.18/dist/yasqe.min.css' rel='stylesheet' type='text/css'/>
+<link href='//cdn.jsdelivr.net/yasr/2.10.8/yasr.min.css' rel='stylesheet' type='text/css'/>
+<style>
+  .yasqe .CodeMirror {
+    border: 1px solid #eee;
+    height: auto;
+  }
+  .yasqe .CodeMirror-scroll {
+    overflow-y: hidden;
+    overflow-x: auto;
+  }
+  .logos {
+    vertical-align: middle;
+    height: 40px;
+    margin-left: 15px;
+    margin-right: 15px;
+  }
+</style>
+</head>
+
+<body style="margin-left:34px;margin-top:28px;margin-right:34px;">
+
+<h1 class="yasr" id="page_title" style="font-size: 138.5%"></h1>
+
+<p class="yasr">Retrieved from <a href="https://www.wikidata.org">Wikidata</a></p>
+
+<div id="yasqe"></div>
+
+<div id="yasr"></div>
+
+<footer style="clear: both">
+
+<p id="query_info" class="yasr" style="font-size: 77%">Endpoint: <span id="endpoint_url">?</span>,
+  <span id="query_details">?</span><p>
+
+<div class="yasr"><a href="http://zbw.eu/labs"><img class="logos"
+src="http://zbw.eu/labs/sites/all/themes/custom/zenlabs/images/zbw-labs-logo-left.gif"
+style="height: 70px; margin-bottom: 15px; margin-left: 5px;" alt="ZBW Labs" /></a> &#160;
+Powered by <a href="http://yasqe.yasgui.org"><img class="logos"
+src="http://about.yasgui.org/logos/yasqe.png" alt="YASQE" /></a> and
+<a href="http://yasr.yasgui.org/"><img class="logos"
+src="http://about.yasgui.org/logos/yasr.png" alt="YASR" /></a> - part of the
+<a href="http://about.yasgui.org/"><img class="logos"
+src="http://about.yasgui.org/logos/yasgui.png" alt="YASGUI" /></a> SPARQL client Javascript project.
+</div>
+</footer>
+
+<script src="//code.jquery.com/jquery-1.12.4.min.js"></script>
+<script src='//cdn.jsdelivr.net/npm/yasgui-yasqe@2.11.18/dist/yasqe.bundled.min.js'></script>
+<script src='//cdn.jsdelivr.net/yasr/2.10.8/yasr.bundled.min.js'></script>
+<script src="wd_results.js"></script>
+
+</body>
+
