@@ -136,7 +136,6 @@ var consumeUrl = function (yasqe, args) {
 
     if (args.hide && args.hide === "1") {
       document.getElementById("yasqe").style.display = "none";
-      YASR.defaults.drawOutputSelector = false;
     }
 
     if (args.pageTitle) {
@@ -207,6 +206,11 @@ var consumeUrl = function (yasqe, args) {
 
         yasqe.setValue(query);
         yasqe.query();
+
+        // completely hid the yasr_header
+        if (args.hide && args.hide === "1") {
+          document.getElementsByClassName("yasr_header")[0].style.display = "none";
+        }
       });
     }
   }
@@ -227,7 +231,7 @@ function setPageVars (vars) {
   // additionally, if the query reference could be parsed and split up
   if (vars.queryRepo) {
     document.getElementById("query_details").innerHTML =
-        vars.queryHost + " repo: " + vars.queryRepo + ", Query: " + vars.queryFile;
+        vars.queryHost + " repo: " + vars.queryRepo + ", Query: <a href='https://github.com/" + vars.queryRepo + "/blob/master/" + vars.queryFile + "'>" + vars.queryFile + "</a>" ;
     document.title = vars.queryFile + ' | SPARQL Lab';
   }
 }
