@@ -48,6 +48,13 @@ var loadResultFile = function () {
         resultHost = 'GitHub';
         re = new RegExp("https://api.github.com/repos/(.*?)/contents/(.*?)/results/(.*)");
         break;
+      // other file on the web (particularly files too large for Github)
+      default:
+        resultHost = 'Other'
+        re = 'undefined';
+        resultFile = getUrlParameterByName('resultRef');
+        queryRef = getUrlParameterByName('queryRef');
+        break;
     }
 
     if (re !== 'undefined') {
