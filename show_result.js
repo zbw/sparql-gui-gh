@@ -86,7 +86,7 @@ var loadResultFile = function () {
       // a repository may return the result directly, or,
       // in case of Github, as a JSON data structure with encoded content
       if (resultHost === 'GitHub') {
-        result = atob(data.content);
+        result = b64DecodeUnicode(data.content);
       } else {
         result = data;
       }
@@ -103,3 +103,11 @@ function getUrlParameterByName(name) {
   return results === null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
 }
 
+// decodes Base64 encoded utf8 string, according to
+// https://stackoverflow.com/questions/30106476/using-javascripts-atob-to-decode-base64-doesnt-properly-decode-utf-8-strings/43271130
+function b64DecodeUnicode(str) {
+    // Going backwards: from bytestream, to percent-encoding, to original string.
+    return decodeURIComponent(atob(str).split('').map(function(c) {
+        return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+    }).join(''));
+}
