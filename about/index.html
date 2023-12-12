@@ -86,7 +86,7 @@
 
     <h3 id="jel">JEL</h3>
 
-    <p>Endpoint of <a href="https://zbw.eu/beta/external_identifiers/jel/about.en.html">JEL Classification for Linked Open Data</a>.
+    <p>Endpoint of <a href="https://zbw.eu/beta/external_identifiers/jel/about.en.html">JEL Classification for Linked Open Data</a>.</p>
 
     <ul>
       <li>Endpoint: <tt><a
@@ -99,36 +99,7 @@
       queries</a></li>
     </ul>
 
-    <h3 id="econ_pers">Economists subset of GND</h3>
-
-    <p>Data extracted from <a
-    href="http://thedatahub.org/dataset/dnb-gemeinsame-normdatei">GND</a>
-    (by <a href="http://www.dnb.de/EN/Home/home_node.html">DNB German
-    National Library</a> and the German scientific libraries)</p>
-
-    <ul>
-      <li>Endpoint: <tt><a
-      href="../../sparql/econ_pers/query?">http://zbw.eu/beta/sparql/econ_pers/query</a>
-      </tt></li>
-      <li><a
-      href="http://zbw.eu/beta/sparql-lab/?endpoint=http://zbw.eu/beta/sparql/econ_pers/query&amp;queryRef=https://api.github.com/repos/zbw/sparql-queries/contents/econ_pers/search_concepts_by_text.rq"
-      >Query form</a></li>
-    </ul>
-
-    <h3 id="econ_corp">Economics institutions subset of GND</h3>
-
-    <p>Data extracted from <a
-    href="http://thedatahub.org/dataset/dnb-gemeinsame-normdatei">GND</a> (by
-    <a href="http://www.dnb.de/EN/Home/home_node.html">DNB German National
-    Library</a> and the German scientific libraries)</p>
-    <ul>
-      <li>Endpoint: <tt><a
-      href="../../sparql/econ_corp/query?">http://zbw.eu/beta/sparql/econ_corp/query</a> </tt></li>
-      <li><a
-      href="http://zbw.eu/beta/sparql-lab/?endpoint=http://zbw.eu/beta/sparql/econ_corp/query&amp;queryRef=https://api.github.com/repos/zbw/sparql-queries/contents/econ_pers/search_concepts_by_text.rq&amp;searchString=zbw"
-      >Query form</a></li>
-    </ul>
-
+    <!--
     <h3 id="econstor-lod">EconStor LOD</h3>
 
     <p>Data extracted from the <a href="http://www.econstor.eu">EconStor</a>
@@ -143,6 +114,7 @@
       <li><a
       href="http://linkeddata.econstor.eu/beta/snorql">Query form</a></li>
     </ul>
+    -->
 
     <h3 id="pm20">20th Century Press Archives (PM20)</h3>
 
@@ -162,8 +134,6 @@
     </ul>
 
 
-    <h2>Endpoints (experimental)</h2>
-
     <h3 id="gnd">Integrated Authority File (GND)</h3>
 
     <p>Data from the <a href="http://www.dnb.de/EN/lds"
@@ -180,78 +150,20 @@
       >example queries</a></li>
     </ul>
 
-    <h3 id="gerdi">GeRDI</h3>
-
-    <p>This is subset of the <a href="https://www.gerdi-project.eu/">GeRDI
-    project collection</a> that provides a Generic Research Data
-    Infrastructure (GeRDI). It enables scientists in Germany, especially those
-    who hold only small amounts of data, to store, share and re-use research
-    data across disciplines.</p>
-
-    <ul>
-      <li>Endpoint: <tt><a
-      href="../../sparql/gerdi/query?">http://zbw.eu/beta/sparql/gerdi/query</a>
-      </tt></li>
-      <li><a
-      href="http://zbw.eu/beta/sparql-lab/?endpoint=http://zbw.eu/beta/sparql/gerdi/query&amp;queryRef=https://api.github.com/repos/zbw/sparql-queries/contents/gerdi/datasetsPerSubject.rq"
-      >Query form</a></li>
-      <li>Further <a
-      href="https://github.com/zbw/sparql-queries/tree/master/gerdi#readme"
-      >example queries</a></li>
-    </ul>
-
-    <h3 id="scholexplorer">Scholexplorer</h3>
-
-    <p>This is a subset (155.895 links) of the <a
-    href="https://scholexplorer.openaire.eu">Scholexplorer collection</a>,
-    which includes links between publications and datasets, contributed by 17
-    link providers.</p>
-
-    <ul>
-      <li>Endpoint: <tt><a
-      href="../../sparql/scholexplorer/query?">http://zbw.eu/beta/sparql/scholexplorer/query</a>
-      </tt></li>
-      <li><a
-      href="http://zbw.eu/beta/sparql-lab/?endpoint=http://zbw.eu/beta/sparql/scholexplorer/query&amp;queryRef=https://api.github.com/repos/zbw/sparql-queries/contents/scholexplorer/linksPerProvider.rq"
-      >Query form</a></li>
-      <li>Further <a
-      href="https://github.com/zbw/sparql-queries/tree/master/scholexplorer#readme"
-      >example queries</a></li>
-    </ul>
-
-    <h3 id="scholarly_artifacts_kg">scholarly_artifacts_kg</h3>
-
-    <p>A collection of different scholarly artifacts metadata, such as
-    publications, datasets, links between publications and datasets, and blog
-    posts.</p>
-
-    <ul>
-      <li>Endpoint: <tt><a
-      href="../../sparql/scholarly_artifacts_kg/query?">http://zbw.eu/beta/sparql/scholarly_artifacts_kg/query</a>
-      </tt></li>
-      <li><a
-      href="http://zbw.eu/beta/sparql-lab/?endpoint=http://zbw.eu/beta/sparql/scholarly_artifacts_kg/query&amp;queryRef=https://api.github.com/repos/zbw/sparql-queries/contents/graph_overview_simple.rq"
-      >Query form</a></li>
-      <li>Further <a
-      href="https://github.com/zbw/sparql-queries/tree/master/scholarly_artifacts_kg#readme"
-      >example queries</a></li>
-    </ul>
-
     <h3 id="skos-history">skos-history</h3>
 
     <p>Endpoints with multiple versions of a dataset and queries to compare
     them are referenced in the
     <a href="https://github.com/zbw/skos-history/tree/master/sparql#readme"
-    >skos-history project</a>.
+    >skos-history project</a>.</p>
 
     <h2 id="docs">Standard tools and documentation</h2>
 
     <h3>Documentation</h3>
     <ul>
       <li><a href="http://jena.apache.org/documentation/fuseki2/">Fuseki2 documentation</a></li>
-      <li><a href="http://about.yasgui.org/">YASGUI SPARQL GUI documentation</a></li>
+      <li><a href="https://github.com/TriplyDB/Yasgui">YASGUI SPARQL GUI documentation</a></li>
       <li><a href="https://github.com/zbw/sparql-gui-gh">SPARQL Lab source code and documentation</a></li>
-      <li><a href="http://zbw.eu/labs/en/tag/sparql">ZBW Labs on SPARQL</a></li>
     </ul>
 
     <h3>Validators</h3>
